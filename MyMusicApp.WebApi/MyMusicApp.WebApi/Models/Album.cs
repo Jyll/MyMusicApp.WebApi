@@ -1,23 +1,21 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
 
-namespace MyMusicApp.WebApi.Models
+namespace MyMusicApp.WebApi.Models.Test
 {
-    public class Album
+    public partial class Album
     {
-        public Guid Id { get; set; }
+        public Album()
+        {
+            Songs = new HashSet<Song>();
+        }
 
-        public string Author { get; set; }
-
-        public double Duration => TrackList?.Sum(song => song.Duration) ?? 0;
-
-        public DateTime? ReleaseDate { get; set; }
-
-        public IList<Song> TrackList { get; set; }
-
-        public string MediaUrl { get; set; }
-
+        public int Id { get; set; }
+        public string Name { get; set; }
         public string CoverUrl { get; set; }
+        public DateTime? ReleaseDate { get; set; }
+        public string AlbumUrl { get; set; }
+
+        public ICollection<Song> Songs { get; set; }
     }
 }

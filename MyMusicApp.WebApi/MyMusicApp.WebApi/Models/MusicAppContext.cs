@@ -1,0 +1,42 @@
+﻿using Microsoft.EntityFrameworkCore;
+
+namespace MyMusicApp.WebApi.Models.Test
+{
+    public partial class MusicAppContext : DbContext
+    {
+        public virtual DbSet<Album> Album { get; set; }
+        public virtual DbSet<Song> Song { get; set; }
+
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
+        {
+            modelBuilder.Entity<Album>(entity =>
+            {
+                entity.Property(e => e.AlbumUrl).HasMaxLength(1);
+
+                entity.Property(e => e.Name)
+                    .IsRequired()
+                    .HasMaxLength(256);
+
+                entity.Property(e => e.ReleaseDate).HasColumnType("datetime");
+            });
+
+            modelBuilder.Entity<Song>(entity =>
+            {
+                entity.Property(e => e.Author)
+                    .IsRequired()
+                    .HasMaxLength(256);
+
+                entity.Property(e => e.CoverUrl).HasMaxLength(256);
+
+                entity.Property(e => e.Name)
+                    .IsRequired()
+                    .HasMaxLength(256);
+
+                entity.HasOne(d => d.Album)
+                    .WithMany(p => p.Songs)
+                    .HasForeignKey(d => d.AlbumId)
+                    .HasConstraintName("FK_Album");
+            });
+        }
+    }
+}

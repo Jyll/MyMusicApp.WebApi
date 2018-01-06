@@ -40,6 +40,6 @@ Thumbs.db
 *.dotCover
 
 # avoid sending connection strings
-*appsettings.Development.json
+*.Development.json
 
 .vs

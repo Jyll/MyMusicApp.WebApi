@@ -11,10 +11,16 @@ namespace MyMusicApp.WebApi.Models.Test
         }
 
         public int Id { get; set; }
+
         public string Name { get; set; }
+
         public string CoverUrl { get; set; }
+
         public DateTime? ReleaseDate { get; set; }
+
         public string AlbumUrl { get; set; }
+
+        public string Genre { get; set; }
 
         public ICollection<Song> Songs { get; set; }
     }

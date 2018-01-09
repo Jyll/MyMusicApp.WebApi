@@ -1,11 +1,15 @@
 ﻿using Microsoft.EntityFrameworkCore;
 
-namespace MyMusicApp.WebApi.Models.Test
+namespace MyMusicApp.WebApi.Models
 {
     public partial class MusicAppContext : DbContext
     {
         public virtual DbSet<Album> Album { get; set; }
         public virtual DbSet<Song> Song { get; set; }
+
+        public MusicAppContext() : base() { }
+
+        public MusicAppContext(DbContextOptions<MusicAppContext> options) : base(options) { }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
@@ -16,6 +20,9 @@ namespace MyMusicApp.WebApi.Models.Test
                 entity.Property(e => e.Name)
                     .IsRequired()
                     .HasMaxLength(256);
+
+                entity.Property(e => e.Genre)
+                    .HasMaxLength(50);
 
                 entity.Property(e => e.ReleaseDate).HasColumnType("datetime");
             });
@@ -31,6 +38,9 @@ namespace MyMusicApp.WebApi.Models.Test
                 entity.Property(e => e.Name)
                     .IsRequired()
                     .HasMaxLength(256);
+
+                entity.Property(e => e.Genre)
+                    .HasMaxLength(50);
 
                 entity.HasOne(d => d.Album)
                     .WithMany(p => p.Songs)

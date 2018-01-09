@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace MyMusicApp.WebApi.Models.Test
+namespace MyMusicApp.WebApi.Models
 {
     public partial class Album
     {

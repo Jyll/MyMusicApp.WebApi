@@ -3,28 +3,37 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
+using MyMusicApp.WebApi.Services;
+using MyMusicApp.WebApi.Models;
 
 namespace Test.Controllers
 {
     [Route("api/[controller]")]
     public class ValuesController : Controller
     {
+        private IMusicLibrary _service;
+
+        public ValuesController(IMusicLibrary service)
+        {
+            _service = service;
+        }
+
         // GET api/values
         /// <summary>
         /// Get this instance. COUCOU
         /// </summary>
         /// <returns>The get.</returns>
         [HttpGet]
-        public IEnumerable<string> Get()
+        public IEnumerable<Song> Get()
         {
-            return new string[] { "value1", "value2" };
+            return _service.GetSongs();
         }
 
         // GET api/values/5
-        [HttpGet("{id}")]
-        public string Get(int id)
+        [HttpGet("genre")]
+        public IEnumerable<Song> Get(string genre)
         {
-            return "value";
+            return _service.GetSongs(genre);
         }
 
         // POST api/values

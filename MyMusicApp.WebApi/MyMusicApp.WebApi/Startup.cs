@@ -1,7 +1,10 @@
 ﻿using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using MyMusicApp.WebApi.Models;
+using MyMusicApp.WebApi.Services;
 using Swashbuckle.AspNetCore.Swagger;
 
 namespace Test
@@ -17,9 +20,14 @@ namespace Test
 
         public void ConfigureServices(IServiceCollection services)
         {
-            var toto = Configuration.GetConnectionString("database");
-
             services.AddMvc();
+
+            services.AddDbContext<MusicAppContext>( options =>
+            {
+                options.UseSqlServer(Configuration.GetConnectionString("database"));
+            });
+
+            services.AddTransient<IMusicLibrary, MusicLibraryService>();
 
             services.AddSwaggerGen((obj) => 
             { 

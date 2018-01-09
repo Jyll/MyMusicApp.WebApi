@@ -30,12 +30,16 @@ namespace MyMusicApp.WebApi.Services
 
         public IList<Song> GetSongs(string GenreFilter = null)
         {
-            return _musicAppContext.Song.Where(song => GenreFilter == null || string.CompareOrdinal(song.Genre, GenreFilter) == 0 ).ToList();
+            return _musicAppContext.Song
+                .Where(song => GenreFilter == null || song.Genre.Trim().ToLowerInvariant() == GenreFilter.Trim().ToLowerInvariant() )
+                .ToList();
         }
 
-        public IList<Song> GetSongsByArtist()
+        public IList<Song> GetSongsByArtist(string artistName)
         {
-            throw new NotImplementedException();
+            return _musicAppContext.Song
+                .Where(song => song.Author.Trim().ToLowerInvariant() == artistName.Trim().ToLowerInvariant() )
+                .ToList();
         }
     }
 }

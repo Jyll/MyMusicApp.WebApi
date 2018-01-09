@@ -21,6 +21,7 @@ namespace Test
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddMvc();
+            services.AddApplicationInsightsTelemetry(Configuration);
 
             services.AddDbContext<MusicAppContext>( options =>
             {
@@ -47,7 +48,6 @@ namespace Test
             {
                 c.SwaggerEndpoint("/swagger/v1/swagger.json", "My API V1");
             });
-
         }
     }
 }

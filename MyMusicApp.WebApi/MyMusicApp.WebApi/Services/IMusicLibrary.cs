@@ -5,7 +5,7 @@ namespace MyMusicApp.WebApi.Services
 {
     public interface IMusicLibrary
     {
-        IList<Song> GetSongsByArtist();
+        IList<Song> GetSongsByArtist(string artistName);
 
         IList<Song> GetSongs(string GenreFilter = null);
     }
